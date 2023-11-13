@@ -209,12 +209,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const maxScrollLeftPosition = thumbSlideItem.scrollWidth - thumbSlideItem.offsetWidth;
     scrollLeftPosition = Math.max(0, Math.min(maxScrollLeftPosition, scrollLeftPosition));
   
-    // const scrollCarousel = document.querySelector(".thumb_slide_item");
-    thumbSlideItem.scrollBy({
-      top: 0,
-      left: scrollLeftPosition,
-      inline: 'nearest'
-    });
+    // // const scrollCarousel = document.querySelector(".thumb_slide_item");
+    // thumbSlideItem.scrollIntoViewOptions({
+    //   alignToTop: false,
+    //   left: scrollLeftPosition,
+    //   inline: 'nearest',
+    //   behavior: 'smooth'
+    // });
+
+    
   }
   
   });
