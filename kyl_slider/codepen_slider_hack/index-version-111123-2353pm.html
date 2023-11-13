@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Add your carousel styles here */
+        .carousel {
+            width: 100%;
+            margin: auto;
+        }
+
+        .main-carousel, .thumbnail-carousel {
+            /* Add your carousel styles here */
+            width: 100%;
+            margin: auto;
+            overflow-x: scroll;
+            display: flex;
+        }
+
+        .carousel-inner {
+            display: flex;
+        }
+
+        .carousel .item {
+            border: 3px solid black;
+            flex: 0 0 auto;
+        }
+
+        .carousel .item img {
+            height: 60vh !important;
+            min-width: 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .thumbnail-carousel img {
+            width: 100px; /* Adjust the thumbnail size as needed */
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .carousel-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .carousel-button {
+            cursor: pointer;
+            padding: 5px;
+            background-color: #ccc;
+            border: 1px solid #999;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <div id="main-carousel" class="carousel-inner main-carousel">
+            <!-- Main Carousel: Elements will be dynamically added here -->
+        </div>
+
+        <div id="thumbnail-carousel" class="carousel-inner thumbnail-carousel">
+            <!-- Thumbnail Carousel: Elements will be dynamically added here -->
+        </div>
+
+        <div class="carousel-buttons">
+            <div class="carousel-button" id="prev">Previous</div>
+            <div class="carousel-button" id="next">Next</div>
+        </div>
+    </div>
+
+    <script>
+        // Function to create carousel items
+        function createCarouselItem(index, isThumbnail = false) {
+            const prefix = isThumbnail ? 'Thumbnail' : 'Product';
+            return `<div class="item">
+                        <img src="http://placehold.it/1600x700?text=${prefix}+${index + 1}">
+                    </div>`;
+        }
+
+        // Get the main and thumbnail carousel elements
+        const mainCarousel = document.getElementById('main-carousel');
+        const thumbnailCarousel = document.getElementById('thumbnail-carousel');
+
+        // Number of carousel items to create
+        const numberOfItems = 16;
+
+        // Populate main carousel and thumbnail carousel with dynamically created items
+        for (let i = 0; i < numberOfItems; i++) {
+            mainCarousel.innerHTML += createCarouselItem(i);
+            thumbnailCarousel.innerHTML += createCarouselItem(i, true);
+        }
+
+        // Add event listeners for previous and next buttons
+        document.getElementById('prev').addEventListener('click', () => {
+            mainCarousel.scrollLeft -= mainCarousel.offsetWidth;
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            mainCarousel.scrollLeft += mainCarousel.offsetWidth;
+        });
+    </script>
+</body>
+</html>

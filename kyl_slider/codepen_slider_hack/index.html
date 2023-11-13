@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Add your carousel styles here */
+        .carousel {
+            width: 100%;
+            margin: auto;
+        }
+
+        .main-carousel {
+            /* Add your main carousel styles here */
+            width: 100%;
+            margin: auto;
+            overflow-x: scroll;
+        }
+
+        .thumbnail-carousel {
+            /* Add your thumbnail carousel styles here */
+            width: 80%;
+            margin: auto;
+            margin-top: 10px;
+        }
+
+        .thumbnail-carousel img {
+            width: 100px; /* Adjust the thumbnail size as needed */
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+       
+        /* .main-carousel .item:first-child {
+            display:block;
+        } */
+
+        .main-carousel .item {
+            border: 3px solid black;
+            /* display: none; */
+        }
+
+        .main-carousel .item.active {
+            border: 3px solid lime;
+            display: block;
+        }
+
+
+        .main-carousel .item img {
+            height: 60vh !important;
+            min-width: 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            object-fit: cover;
+        }
+
+        .main-carousel {
+            border: 2px solid red;
+            display: flex;
+            /*   overflow-x: scroll; */
+            height: 60vh;
+        }
+
+        .thumbnail-carousel {
+            border: 2px solid green;
+            display: flex;
+            height: 20vh;
+            overflow-x: scroll;
+        }
+
+        .thumbnail-carousel .item {
+            border: 2px solid magenta;
+            min-width: calc(100% / 8);
+        }
+
+        .thumbnail-carousel .item.active {
+            border: 6px dashed aqua;
+        }
+
+        .thumbnail-carousel .item img {
+            background-size: 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 100%;
+        }
+
+        .carousel-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .carousel-button {
+            cursor: pointer;
+            padding: 5px;
+            background-color: #ccc;
+            border: 1px solid #999;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <div id="main-carousel" class="carousel-inner main-carousel">
+            <!-- Main Carousel: Elements will be dynamically added here -->
+        </div>
+
+        
+
+        <div id="thumbnail-carousel" class="carousel-inner thumbnail-carousel">
+            <!-- Thumbnail Carousel: Elements will be dynamically added here -->
+        </div>
+
+        <!-- <div class="carousel-buttons">
+            <div class="carousel-button" id="prev-main">Previous</div>
+            <div class="carousel-button" id="next-main">Next</div>
+        </div> -->
+        <div class="carousel-buttons">
+            <div class="carousel-button" id="prev">Previous</div>
+            <div class="carousel-button" id="next">Next</div>
+        </div>
+    </div>
+
+    <script>
+        // Function to create carousel items
+        function createCarouselItem(index, isThumbnail = false) {
+            const prefix = isThumbnail ? 'Thumbnail' : 'Product';
+            return `<div class="item">
+                        <img src="http://placehold.it/1600x700?text=${prefix}+${index + 1}">
+                    </div>`;
+        }
+
+        // Get the main and thumbnail carousel elements
+        const mainCarousel = document.getElementById('main-carousel');
+        const thumbnailCarousel = document.getElementById('thumbnail-carousel');
+
+        // Number of carousel items to create
+        const numberOfItems = 16;
+
+        // Populate main carousel with dynamically created items
+        for (let i = 0; i < numberOfItems; i++) {
+            mainCarousel.innerHTML += createCarouselItem(i);
+        }
+
+        // Populate thumbnail carousel with dynamically created items
+        for (let i = 0; i < numberOfItems; i++) {
+            thumbnailCarousel.innerHTML += createCarouselItem(i, true);
+        }
+
+        // Add event listener to synchronize main and thumbnail carousels
+        // const updateCarousels = (index) => {
+        //     mainCarousel.scrollLeft = mainCarousel.offsetWidth * index;
+        //     thumbnailCarousel.scrollLeft = thumbnailCarousel.offsetWidth * index;
+        // };
+
+        const updateCarousels = (index) => {
+            if (index >= 0 && index < numberOfItems) {
+            mainCarousel.scrollLeft = mainCarousel.offsetWidth * index;
+            // thumbnailCarousel.scrollLeft = thumbnailCarousel.offsetWidth * index;
+                            // Check if the slide is beyond index 7 before updating the thumbnail carousel
+            if (index >= 7) {
+                // thumbnailCarousel.scrollLeft = thumbnailCarousel.offsetWidth * index;
+                // const thumbnailIndex = index - 7;
+                const thumbnailIndex = index >= 7 ? inmdex - 7 : 0;
+                thumbnailCarousel.scrollLeft = thumbnailCarousel.offsetWidth * thumbnailIndex;
+               
+            }
+
+            // Remove the 'active' class from all items in both carousels
+            Array.from(mainCarousel.children).forEach(item => {
+                item.classList.remove('active');
+            });
+
+            Array.from(thumbnailCarousel.children).forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add the 'active' class to the clicked items in both carousels
+            mainCarousel.children[index].classList.add('active');
+            thumbnailCarousel.children[index].classList.add('active');
+        }
+        };
+
+        // // Add event listener to synchronize main and thumbnail carousels
+        // thumbnailCarousel.addEventListener('click', (event) => {
+        //     if (event.target.tagName === 'IMG') {
+        //         // Set the main carousel to the clicked thumbnail
+        //         mainCarousel.innerHTML = event.target.outerHTML;
+        //     }
+        // });
+
+        thumbnailCarousel.addEventListener('click', (event) => {
+            if (event.target.tagName === 'IMG') {
+                // Set the main and thumbnail carousels to the clicked thumbnail
+                const index = Array.from(thumbnailCarousel.children).indexOf(event.target.parentNode);
+                updateCarousels(index);
+            }
+        });
+
+        // // Add event listeners for previous and next buttons
+        // document.getElementById('prev-main').addEventListener('click', () => {
+        //     mainCarousel.scrollLeft -= mainCarousel.offsetWidth;
+        // });
+
+        // document.getElementById('next-main').addEventListener('click', () => {
+        //     mainCarousel.scrollLeft += mainCarousel.offsetWidth;
+        // });
+
+        // document.getElementById('prev-thumbnail').addEventListener('click', () => {
+        //     thumbnailCarousel.scrollLeft -= thumbnailCarousel.offsetWidth;
+        // });
+
+        // document.getElementById('next-thumbnail').addEventListener('click', () => {
+        //     thumbnailCarousel.scrollLeft += thumbnailCarousel.offsetWidth;
+        // });
+
+        // Add event listeners for previous and next buttons
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        prevButton.addEventListener('click', () => {
+            const currentIndex = mainCarousel.scrollLeft / mainCarousel.offsetWidth;
+            updateCarousels(currentIndex - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            const currentIndex = mainCarousel.scrollLeft / mainCarousel.offsetWidth;
+            updateCarousels(currentIndex + 1);
+        });
+
+        // Initialize the first index as active on page load
+        updateCarousels(0);
+
+    </script>
+</body>
+</html>
