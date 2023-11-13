@@ -1,0 +1,124 @@
+.main_slide_item {
+    border: 2px solid red;
+    height: 72vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+  }
+  
+  .main_slide_item {
+    border:  2px dashed blue;
+    display: none;
+  }
+  
+  .main_slide_item.active {
+    border: 2px solid lime;
+    display: block;
+  }
+  
+  img.main_img_div {
+    border: 2px solid lime;
+    width: 30%;
+    margin: 0 auto;
+    top: 35%;
+    display:flex;
+    position: relative;
+  }
+  
+  .thumb_slide_item img {
+    border: 1px solid red;
+    width:100%;
+    height: 200px;
+    margin-top: -1.5vh;
+  }
+  
+  .thumb_slide_item {
+    border: 2px solid green;
+    min-width: calc(98%/8);
+    min-width: calc(98%/8);
+    height: 200px;
+  }
+  
+  .thumb_slide_item.active {
+    border: 4px dashed aqua;
+  }
+  
+  .thumbnail_carousel_section {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    top: -65px;
+  }
+  
+  .thumbnail_carousel_container {
+    border: 4px solid magenta;
+    width: 100%;
+    overflow-x: hidden;
+    height: 300px;
+  }
+  
+  .thumbnail_carousel {
+    display: flex;
+  }
+  
+  .thumb_slider_button {
+    width: 120%;
+    border: 1px solid black;
+    margin: 0 auto;
+    position: relative;
+    left: -10%;
+  }
+  
+  .slide-arrow {
+    color: cornflowerblue;
+    font-size: 4rem;
+    font-weight: bold;
+    background : #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #slide-arrow-next {
+    position: relative;
+    right: -90%;
+  }
+  
+  .thumb_slider_button {
+    margin-top: -130px;
+  }
+  
+  p.h5.location_title {
+    background: #59c6e7;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: .7rem;
+    padding: 1rem 0;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  a.thumb_link {
+    background: #000;
+    border-radius: 50px;
+    padding: 1rem;
+    width: 40%;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    margin-top: -30px;
+    z-index: 2;
+  }
+
+  i.fa.fa-arrow-right {
+    color: #fff;
+    padding: 2px 0 0 10px;
+    font-weight: bold;
+  }
+  
+  
