@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Slider Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #main-slider {
+        border: 4px solid magenta;
+        height: 60vh;
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .main_slide_item {
+        border: 1px dotted violet;
+    }
+
+    #thumbnail-slider {
+        border: 1px solid blue;
+        height: 20vh;
+        width: 100%;
+        margin: 20px 0;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .thumb_slide_item {
+        border: 2px dashed lime;
+        width: calc(100%/8);
+    }
+
+    .slick-prev, .slick-next {
+      font-size: 24px;
+    }
+
+    .slick-prev {
+      left: 10px;
+    }
+
+    .slick-next {
+      right: 10px;
+    }
+
+    .slick-track {
+        border: 1px solid green;
+    }
+
+    .slick-active {
+        border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="main-slider"></div>
+  <div id="thumbnail-slider"></div>
+
+  <script>
+    window.onload = function () {
+      // Function to generate slides dynamically
+      function generateSlides(numSlides) {
+        let slides = '';
+        for (let i = 1; i <= numSlides; i++) {
+          slides += '<div class="main_slide_item"><img src="slide' + i + '.jpg" alt="Slide ' + i + '"></div>';
+        }
+        return slides;
+      }
+
+      // Function to generate thumbnails dynamically
+      function generateThumbnails(numSlides) {
+        let thumbnails = '';
+        for (let i = 1; i <= numSlides; i++) {
+          thumbnails += '<div class="thumb_slide_item"><img src="thumb' + i + '.jpg" alt="Thumbnail ' + i + '"></div>';
+        }
+        return thumbnails;
+      }
+
+      // Initialize main slider
+      var mainSlider = document.getElementById('main-slider');
+      mainSlider.innerHTML = generateSlides(20);
+
+      // Initialize thumbnail slider
+      var thumbnailSlider = document.getElementById('thumbnail-slider');
+      thumbnailSlider.innerHTML = generateThumbnails(20);
+
+      // Add active class to corresponding slides
+      mainSlider.addEventListener('beforeChange', function (event) {
+        // Remove active class from all slides
+        var slides = document.querySelectorAll('#main-slider, #thumbnail-slider .slick-slide');
+        slides.forEach(function (slide) {
+          slide.classList.remove('slick-active');
+        });
+
+        // Add active class to the next slide
+        var nextSlide = event.detail.nextSlide;
+        slides.forEach(function (slide) {
+          if (slide.dataset.slickIndex == nextSlide) {
+            slide.classList.add('slick-active');
+          }
+        });
+      });
+
+      // Initialize main slider
+      var mainSlider = document.getElementById('main-slider');
+      mainSlider.innerHTML = generateSlides(20);
+
+      // Initialize thumbnail slider
+      var thumbnailSlider = document.getElementById('thumbnail-slider');
+      thumbnailSlider.innerHTML = generateThumbnails(20);
+
+      // Add active class to corresponding slides
+      mainSlider.addEventListener('beforeChange', function (event) {
+        // Remove active class from all slides
+        var slides = document.querySelectorAll('#main-slider, #thumbnail-slider .slick-slide');
+        slides.forEach(function (slide) {
+          slide.classList.remove('slick-active');
+        });
+
+        // Add active class to the next slide
+        var nextSlide = event.detail.nextSlide;
+        slides.forEach(function (slide) {
+          if (slide.dataset.slickIndex == nextSlide) {
+            slide.classList.add('slick-active');
+          }
+        });
+      });
+    };
+  </script>
+</body>
+</html>
