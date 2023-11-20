@@ -119,7 +119,7 @@ window.addEventListener("DOMContentLoaded", function(){
   let lastActiveIndex = 0; // Add this variable to store the last active index
   let autoplayInterval;
   let isAutoplayPaused = false;
-  // let isTransitionInProgress = false; // Add this flag
+  let isTransitionInProgress = false; // Add this flag
 
 
   function updateActiveSlide(index) {
@@ -131,11 +131,11 @@ window.addEventListener("DOMContentLoaded", function(){
   }
 
   function startAutoplay(startIndex) {
-    // isTransitionInProgress = true; // Set the flag to true when starting the transition
+    isTransitionInProgress = true; // Set the flag to true when starting the transition
     autoplayInterval = setInterval(function () {
       if (!isAutoplayPaused) {
         currentActiveIndex = (startIndex + 1) % desktopSlides.length;
-        updateActiveSlide(currentActiveIndex);z
+        updateActiveSlide(currentActiveIndex);
       }
     }, 2000);
   }
@@ -161,36 +161,35 @@ window.addEventListener("DOMContentLoaded", function(){
     // }, 2000); // Adjust the delay according to your autoplay interval
   }
 
-  nextButton.addEventListener('click', function () {
-    lastActiveIndex = currentActiveIndex; // Update the last active index
-    currentActiveIndex = (currentActiveIndex + 1) % desktopSlides.length;
-    handleButtonClick(currentActiveIndex);
-    // startAutoplay(currentActiveIndex);
-  });
-
-  prevButton.addEventListener('click', function () {
-    lastActiveIndex = currentActiveIndex; // Update the last active index
-    currentActiveIndex = (currentActiveIndex - 1 + desktopSlides.length) % desktopSlides.length;
-    handleButtonClick(currentActiveIndex);
-    // startAutoplay(currentActiveIndex);
-  });
-
   // nextButton.addEventListener('click', function () {
-  //   if (!isTransitionInProgress) {
-  //     lastActiveIndex = currentActiveIndex;
-  //     currentActiveIndex = (currentActiveIndex + 1) % desktopSlides.length;
-  //     handleButtonClick(currentActiveIndex);
-  //   }
+  //   lastActiveIndex = currentActiveIndex; // Update the last active index
+  //   currentActiveIndex = (currentActiveIndex + 1) % desktopSlides.length;
+  //   handleButtonClick(currentActiveIndex);
+  //   // startAutoplay(currentActiveIndex);
   // });
 
   // prevButton.addEventListener('click', function () {
-  //   if (!isTransitionInProgress) {
-  //     lastActiveIndex = currentActiveIndex;
-  //     currentActiveIndex = (currentActiveIndex - 1 + desktopSlides.length) % desktopSlides.length;
-  //     handleButtonClick(currentActiveIndex);
-  //   }
+  //   lastActiveIndex = currentActiveIndex; // Update the last active index
+  //   currentActiveIndex = (currentActiveIndex - 1 + desktopSlides.length) % desktopSlides.length;
+  //   handleButtonClick(currentActiveIndex);
+  //   // startAutoplay(currentActiveIndex);
   // });
- 
+
+  nextButton.addEventListener('click', function () {
+    if (!isTransitionInProgress) {
+      lastActiveIndex = currentActiveIndex;
+      currentActiveIndex = (currentActiveIndex + 1) % desktopSlides.length;
+      handleButtonClick(currentActiveIndex);
+    }
+  });
+
+  prevButton.addEventListener('click', function () {
+    if (!isTransitionInProgress) {
+      lastActiveIndex = currentActiveIndex;
+      currentActiveIndex = (currentActiveIndex - 1 + desktopSlides.length) % desktopSlides.length;
+      handleButtonClick(currentActiveIndex);
+    }
+  });
 
   // Start autoplay initially
   startAutoplay(currentActiveIndex);
